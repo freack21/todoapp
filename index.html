@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>ToDoApp</title>
+  </head>
+  <body>
+    <div class="container" id="app">
+      <span v-if="!getName" id="name">
+        <h1>ToDoApp</h1>
+        <h3>(makes your activity)</h3>
+        <h6>by. <a href="http://freack21.github.io">freack21</a></h6>
+        <hr />
+        <h5>Name</h5>
+        <input
+          type="text"
+          v-model="name"
+          v-on:keyup.enter="setName"
+          placeholder="enter your name (max. 15)"
+          class="txt"
+          maxlength="15"
+        />
+        <button @click="setName">Continue</button>
+      </span>
+
+      <span v-else id="list">
+        <h1>{{greet}}, {{nama}}{{t2}}</h1>
+        <h4>make your activities, make your day</h4>
+        <div class="nav">
+          <button @click="setTodo">Save</button>
+          <button @click="changeName">Edit Name</button>
+          <button @click="resetAll">Reset Data</button>
+        </div>
+        <h5>New Todo</h5>
+        <input
+          type="text"
+          v-model="todo"
+          v-on:keyup.enter="addTodo"
+          placeholder="write new todo (max. 30)"
+          class="txt"
+          maxlength="30"
+        />
+        <button @click="addTodo" class="add">Add</button>
+        <p v-if="!isListed && !getTodo" class="nolist">❌ No List</p>
+        <section v-else-if="isListed">
+          <h3 class="expl">📚 Todo List</h3>
+        </section>
+        <p v-else class="nolist">❌ No List</p>
+        <ul class="todoList">
+          <li v-for="(tdl, i) in todoLi">
+            <label class="check" :class="{'done' : todone[i]}">
+              {{tdl}}<input
+                type="checkbox"
+                v-model="todone[i]"
+                :value="todone[i]"
+              /><span class="checkmark"></span
+              ><button @click="removeTodo(i)">❌</button></label
+            >
+          </li>
+        </ul>
+        <p v-if="isListed" class="expl">
+          {{(!isDone ? yetDone + ' list left' : 'List has been completed')}}
+          <button @click="removeAll">Remove All</button>
+          <button @click="doneAll(true)" class="mark" v-if="!isDone">
+            Mark All Done
+          </button>
+          <button @click="doneAll(false)" class="mark" v-else>
+            Cancel Mark All Done
+          </button>
+        </p>
+      </span>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
