@@ -46,9 +46,8 @@
           type="text"
           v-model="todo"
           v-on:keyup.enter="addTodo"
-          placeholder="write new todo (max. 30)"
+          placeholder="write new todo"
           class="txt"
-          maxlength="30"
         />
         <button @click="addTodo" class="add">Add</button>
         <p v-if="!isListed && !getTodo" class="nolist">❌ No List</p>
